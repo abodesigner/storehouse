@@ -33,7 +33,6 @@
                                    type="text"
                                    name="name"
                                    class="form-control"
-                                   required
                                    placeholder="Name">
                         </div>
                     </div>
@@ -60,7 +59,6 @@
                                 type="text"
                                 name="price"
                                 class="form-control"
-                                required
                                 placeholder="Price">
                         </div>
                     </div>
@@ -105,7 +103,73 @@
             </div>
 
         <?php } elseif ($do == 'Insert') {
-            // code...
+
+          //Check if the item come from post request method
+          if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+              echo "<h1 class='text-center'>Insert Item</h1>";
+              echo "<div class='container'>";
+
+              // Get Variables from form to insert them in database
+              $name     = $_POST['name'];
+              $desc     = $_POST['description'];
+              $price    = $_POST['price'];
+              $country  = $_POST['country'];
+              $status   = $_POST['status'];
+
+              // Validate the form
+              $FormErrors = array();
+              if(empty($name)){
+                  $FormErrors[] = "Name can't be <strong>empty</strong>";
+              }
+
+              if(empty($desc)){
+                  $FormErrors[] = "Description can't be <strong>empty</strong>";
+              }
+
+              if(empty($price)){
+                  $FormErrors[] = "Price can't be <strong>empty</strong>";
+              }
+
+              if(empty($country)){
+                  $FormErrors[] = "Country can't be <strong>empty</strong>";
+              }
+
+              if($status == 0){
+                  $FormErrors[] = "You must choose one <strong>status</strong>";
+              }
+              // Loop into Errors Array & echo it
+              foreach($FormErrors as $err) {
+                  echo "<div class='alert alert-danger'>" . $err . '</div>';
+              }
+              // Check if there are no errors Proceed to Update operation
+              if(empty($FormErrors)){
+                // Insert New Item data into the database
+                $stmt = $con->prepare("INSERT INTO items(Name, Description, Price, Country_Made, Status, Add_Date)
+                                       VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now())");
+                        $stmt->execute(array(
+                            'zname'    => $name,
+                            'zdesc'    => $desc,
+                            'zprice'   => $country,
+                            'zcountry' => $name,
+                            'zstatus'  => $status
+                        ));
+
+                $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " item inserted successfully</div>";
+                redirectHome($theMsg,'back');
+
+              }
+
+          } else{
+
+              echo "<div class='container'>";
+                  // Open the Insert Page directly
+                  $theMsg = "<div class='alert alert-danger'>You can not browse this page</div>";
+                  redirectHome($theMsg,'back');
+              echo "</div>";
+          }
+          echo "</div>";
+
         } elseif ($do == 'Edit') {
             // code...
         } elseif ($do == 'Update') {
