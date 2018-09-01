@@ -1,2 +1,2 @@
-# Shopz
+# storehouse
 Ecommerce web application
