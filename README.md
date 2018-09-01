@@ -1,0 +1,2 @@
+# Shopz
+Ecommerce web application

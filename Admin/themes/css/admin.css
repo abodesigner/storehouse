@@ -1,0 +1,329 @@
+body{
+    background-color: #f8f8f8;
+    font-size: 16px
+}
+
+/* Start Login Form */
+.login{
+    width: 300px;
+    margin: 300px auto
+}
+
+.login h4{
+    color: #888
+}
+
+.login input{
+    margin-bottom: 5px
+}
+
+.login .form-control{
+    background-color: #e5e5e5
+}
+
+.login .btn{
+    background-color: #008dde;
+}
+/* End Login Form */
+
+/* ===================== Start Customize Bootstrap ================================= */
+
+/* Start Navbar */
+.navbar-inverse{
+    background-color: #fa4659;
+    border-color: #fa4659;
+}
+.navbar{
+    border-radius: 0;
+    margin-bottom: 0
+}
+
+.navbar-brand{
+    font-size: 1em;
+}
+
+.nav>li>a,
+.navbar-brand{
+    padding:15px 12px;
+
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a
+{
+    color: #f0fff3
+}
+
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover,
+.dropdown-menu{
+    background-color: #11cbd7
+}
+
+.dropdown-menu{
+    min-width: 180px;
+    padding: 0;
+    font-size: 1em;
+    border:none;
+    border-radius: 0;
+}
+
+.dropdown-menu > li > a{
+    color: #fff;
+    padding: 10px 30px;
+
+    -webkit-transition:all 0.2s ease-in-out;
+    -moz-transition:all 0.2s ease-in-out;
+    -o-transition:all 0.2s ease-in-out;
+    transition:all 0.2s ease-in-out;
+}
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:hover{
+    background-color: #f0fff3;
+    padding-left:10px;
+    font-weight: 600
+}
+
+.dropdown-menu .divider{
+    margin: 0
+}
+
+i.fas{
+    margin-right: 5px
+}
+/* End Navbar */
+
+/* Start Dashboard */
+.wrapper .stat{
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 2rem;
+    color: #fff
+}
+
+.wrapper .stat a{
+    color: #fff
+}
+
+.wrapper .stat a:hover{
+    text-decoration:none
+}
+
+.wrapper .st-members{
+    background-color: #3498db;
+
+}
+
+.wrapper .st-pending{
+    background-color: #34495e;
+
+}
+
+.wrapper .st-items{
+    background-color: #e67e22;
+
+}
+
+.wrapper .st-comments{
+    background-color: #16a085;
+
+}
+
+
+.wrapper .stat span{
+    display: block;
+    font-size: 6rem;
+    font-weight: 500
+}
+
+.latest{
+    margin-top: 30px
+}
+
+.latest-users{
+    margin-bottom: 0
+}
+
+.latest-users li{
+    padding: 10px;
+    overflow: hidden;
+}
+
+.latest-users li:nth-child(odd){
+    background-color: #eee
+}
+
+.latest-users .btn-success,
+.latest-users .btn-info{
+    padding: 2px 8px;
+}
+
+.latest-users .btn-info{
+    margin-right: 5px
+}
+/* End Dashboard */
+
+/* Start Member Page */
+h1{
+    font-size: 5rem;
+    margin: 20px 0;
+    font-weight: bold;
+    color: #2E94B9
+}
+
+label{
+    color: #243743
+}
+
+.field{
+    position: relative;
+}
+ span.asterix{
+    font-size: 30px;
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    color: #fa4659
+}
+
+.show-pass{
+    position: absolute;
+    top: 10px;
+    right: 40px;
+    color: #9c9a9a;
+    display: none;
+
+}
+
+.main-table{
+    -webkit-box-shadow: 0 3px 20px #ccc;
+    -moz-box-shadow: 0 3px 20px #ccc;
+    -o-box-shadow: 0 3px 20px #ccc;
+    box-shadow: 0 3px 20px #ccc;
+}
+
+
+.main-table td{
+    vertical-align: middle !important;
+}
+
+.main-table th{
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+}
+
+.main-table tr{
+    text-align: center;
+}
+
+.main-table .btn{
+    padding: 3px 10px
+}
+
+.activate{
+    margin-left: 5px
+}
+
+/* End Member Page */
+
+/* Start Categories Page */
+.categories .panel-heading{
+    color: #959595;
+    font-weight: bold
+}
+.categories .panel-body{
+    padding: 0
+}
+
+.categories .option a{
+    text-decoration: none;
+    color: #777;
+}
+
+
+.categories .option span{
+    color: #777;
+    cursor: pointer;
+}
+
+.categories .option .active{
+    color: #fa4659;
+}
+
+.categories hr{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.categories .cat{
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.categories .cat:hover{
+    background-color: #fbf7f7
+}
+
+.categories .cat:hover .hidden-buttons{
+    right: 10px
+}
+
+.categories .cat .hidden-buttons{
+    position: absolute;
+    top: 15px;
+    right: -130px;
+
+    /* Transition for buttons */
+    -webkit-transition:all 0.5s ease-in-out;
+    -moz-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+}
+.categories .cat .hidden-buttons a{
+    margin-right: 5px
+}
+
+.categories .cat h3{
+    margin: 0;
+    cursor: pointer;
+    color: #6a6a6a;
+    font-weight: bold
+}
+
+.categories .cat .full-view p{
+    margin: 10px 0;
+    color: #a5a5a5
+}
+
+.categories .cat:last-of-type ~ hr{
+    display: none
+}
+
+.categories .cat .general{
+    color: #fff;
+    padding:4px 6px;
+    margin-right: 6px;
+    border-radius: 3px;
+    font-size: 12px
+}
+
+.categories .cat .sp-visibilty{
+    background-color: #e74c3c
+}
+
+
+.categories .cat .sp-commenting{
+    background-color: #34495e
+}
+
+
+.categories .cat .sp-ads{
+    background-color: #8e44ad
+}
+
+/* End Categories Page */
+
+/* ===================== End Customize Bootstrap ================================= */
