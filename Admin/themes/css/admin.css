@@ -110,8 +110,26 @@ i.fas{
     text-decoration:none
 }
 
+.wrapper .stat{
+    position: relative;
+    overflow: hidden;
+}
+
 .wrapper .st-members{
     background-color: #3498db;
+
+}
+
+.wrapper .stat i{
+    font-size: 6rem;
+    position: absolute;
+    top: 50px;
+    left: 20px
+}
+
+.wrapper .stat .info{
+    float: right;
+    text-align: center;
 
 }
 
@@ -130,7 +148,6 @@ i.fas{
 
 }
 
-
 .wrapper .stat span{
     display: block;
     font-size: 6rem;
@@ -139,6 +156,15 @@ i.fas{
 
 .latest{
     margin-top: 30px
+}
+
+.latest .toggle-info{
+    color: #999;
+    cursor: pointer;
+}
+
+.latest .toggle-info:hover{
+    color: #444
 }
 
 .latest-users{

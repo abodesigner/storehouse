@@ -65,10 +65,22 @@ $('.option span').click(function(){
 
     // Calls the selectBoxIt method on your HTML select box
     $("select").selectBoxIt({
-
     // Uses the Twitter Bootstrap theme for the drop down
     // theme: "jqueryui"
+    });
 
+    //Start toggle-info part in dashoard
+    $('.toggle-info').on('click', function(){
+        $(this).toggleClass('selected').parent().next('.panel-body').fadeToggle(100);
+
+        if ($(this).hasClass('selected')){
+
+            $(this).html('<i class="fas fa-minus"></i>')
+
+        } else {
+
+            $(this).html('<i class="fas fa-plus"></i>')
+        }
     });
 
 });

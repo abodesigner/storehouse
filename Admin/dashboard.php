@@ -10,40 +10,59 @@
 
         /* Start Dashboard Page */
 
-        $latestUsers = 5; // Number of latest Users
+        $numUsers = 5; // Number of latest Users
+        $latestRegisterdUsers = getLatest("*","users", "Username", $numUsers); //Latest Users Array
 
-        $latestRegisterdUsers = getLatest("*","users", "Username", $latestUsers); //Latest Users Array
+        $numItems = 5;
+        $currentItems = getLatest("*","items", "Name", $numItems); //Latest Items Array
 
         ?>
 
         <div class="wrapper">
-            <div class="container text-center">
+            <div class="container">
                 <h1 class="text-center">Dashboard</h1>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="stat st-members">
-                            Total Members
+                            <i class="fas fa-users"></i>
+                            <div class="info">
+                                Total Members
                                 <span><a href="members.php"><?php echo countItems('UserID','users')?></span></a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stat st-pending">
-                            Pending Members
-                            <span><a href="members.php?do=Manage&page=Pending">
-                                <?php echo checkItem("RegStatus","users",0) ?>
-                            </a></span>
+                            <i class="fas fa-user-plus"></i>
+                            <div class="info">
+                                Pending Members
+                                <span>
+                                    <a href="members.php?do=Manage&page=Pending">
+                                    <?php echo checkItem("RegStatus","users",0) ?>
+                                    </a>
+                                </span>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stat st-items">
-                            Total Items
-                            <span><a href="items.php"><?php echo countItems('Item_ID','items')?></span></a>
+                            <i class="fas fa-tags"></i>
+                            <div class="info">
+                                Total Items
+                                <span><a href="items.php"><?php echo countItems('Item_ID','items')?></span></a>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stat st-comments">
-                            Total Comments
-                            <span>600</span>
+                            <i class="fas fa-comments"></i>
+                            <div class="info">
+                                Total Comments
+                                <span>0</span>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -55,9 +74,11 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="panel panel-default">
-
                             <div class="panel-heading">
-                                <i class="fas fa-users"></i>Latest <strong><?php echo $latestUsers?></strong> Registered Users
+                                <i class="fas fa-users"></i>Latest <strong><?php echo $numUsers?></strong> Registered Users
+                                <span class="toggle-info pull-right">
+                                    <i class="fas fa-plus"></i>
+                                </span>
                             </div>
                             <div class="panel-body">
                                 <ul class="list-unstyled latest-users">
@@ -85,10 +106,30 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fas fa-tags"></i>Latest Items
+                                <i class="fas fa-tags"></i>Latest <strong><?php echo $numItems?></strong> Items
+                                <span class="toggle-info pull-right">
+                                    <i class="fas fa-plus"></i>
+                                </span>
                             </div>
                             <div class="panel-body">
-                                Test
+                                <ul class="list-unstyled latest-users">
+                                    <?php
+                                        foreach ($currentItems as $item) {
+                                            echo '<li>';
+                                                echo $item['Name'];
+                                                echo "<a href='items.php?do=Edit&itemid=" . $item['Item_ID'] ."'>";
+                                                    echo "<span class='btn btn-success pull-right'>";
+                                                        echo "<i class='far fa-edit'></i> Edit";
+                                                        if($item['Approve'] == 0){
+                                                            echo "<a href='items.php?do=Approve&itemid=" . $item['Item_ID'] . "
+                                                            'class='btn btn-info pull-right activate'><i class='far fa-check-square'></i> Approve</a>";
+                                                        }
+                                                    echo "</span>";
+                                                echo "</a>";
+                                            echo "</li>";
+                                        }
+                                    ?>
+                                </ul>
                             </div>
                         </div>
                     </div>

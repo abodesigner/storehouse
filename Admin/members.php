@@ -47,7 +47,8 @@
                                             <a href='members.php?do=Delete&userid=" . $row['UserID'] . "' class='btn btn-danger confirm'><i class='far fa-trash-alt'></i> Delete </a>";
 
                                     if($row['RegStatus'] == 0){
-                                        echo "<a href='members.php?do=Activate&userid=" . $row['UserID'] . "' class='btn btn-info activate'> Activate</a>";
+                                        echo "<a href='members.php?do=Activate&userid=" . $row['UserID'] . "'
+                                        class='btn btn-info activate'><i class='fas fa-check'></i> Activate</a>";
                                     }
 
                                     echo "</td>";
