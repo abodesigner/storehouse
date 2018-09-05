@@ -410,7 +410,54 @@
                         </div>
                         <!-- End Submit Button -->
                     </form>
-                </div>
+
+                    <?php  // Fetch all comments from database.
+                    $stmt = $con->prepare("SELECT
+                                              comments.*,users.Username AS Member
+                                          FROM
+                                              comments
+                                          INNER JOIN
+                                              users
+                                          ON users.UserID = comments.user_id
+                                          WHERE item_id=?");
+                    $stmt->execute(array($itemid));
+                    $rows = $stmt->fetchAll();
+
+                    //check if no data i database
+                    ?>
+
+                    <h1 class="text-center">Manage Comments</h1>
+                    <div class="table-responsive">
+                      <table class="main-table table table-bordered table-hover">
+                          <tr>
+                              <th>Comment</th>
+                              <th>Username</th>
+                              <th>Added Date</th>
+                              <th>Control</th>
+                          </tr>
+                          <?php
+                              foreach ($rows as $row) {
+                                  echo "<tr>";
+                                      echo "<td>" . $row['Comment'] . "</td>";
+                                      echo "<td>" . $row['Member'] . "</td>";
+                                      echo "<td>" . $row['Comment_date'] . "</td>";
+                                      echo "<td>
+                                              <a href='comments.php?do=Edit&cid="   . $row['C_ID'] . "' class='btn btn-success'><i class='fas fa-pen'></i>Edit</a>
+                                              <a href='comments.php?do=Delete&cid=" . $row['C_ID'] . "' class='btn btn-danger confirm'><i class='far fa-trash-alt'></i> Delete </a>";
+
+                                      if($row['Status'] == 0){
+                                          echo "<a href='comments.php?do=Approve&cid=" . $row['C_ID'] . "'
+                                          class='btn btn-info activate'><i class='fas fa-check'></i> Approve</a>";
+                                      }
+
+                                      echo "</td>";
+                                  echo "</tr>";
+                              }
+                          ?>
+                      </table>
+                    </div>
+
+                  </div>
 
             <?php } else {
 
@@ -492,7 +539,7 @@
                         $stmt->execute(array($name, $desc, $price, $country, $status, $cat, $member, $id));
 
                         $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " item updated successfully</div>";
-                        redirectHome($theMsg);
+                        redirectHome($theMsg,'back');
                     }
                 } else{
 

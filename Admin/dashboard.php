@@ -122,7 +122,8 @@
                                                         echo "<i class='far fa-edit'></i> Edit";
                                                         if($item['Approve'] == 0){
                                                             echo "<a href='items.php?do=Approve&itemid=" . $item['Item_ID'] . "
-                                                            'class='btn btn-info pull-right activate'><i class='far fa-check-square'></i> Approve</a>";
+                                                            'class='btn btn-info pull-right activate'>
+                                                            <i class='far fa-check-square'></i> Approve</a>";
                                                         }
                                                     echo "</span>";
                                                 echo "</a>";
