@@ -419,14 +419,16 @@
                                           INNER JOIN
                                               users
                                           ON users.UserID = comments.user_id
+
                                           WHERE item_id=?");
+
                     $stmt->execute(array($itemid));
+
                     $rows = $stmt->fetchAll();
 
-                    //check if no data i database
-                    ?>
+                    if(!empty($rows)){ ?>
 
-                    <h1 class="text-center">Manage Comments</h1>
+                    <h1 class="text-center">Manage [<?php echo $item['Name']?>] Comments</h1>
                     <div class="table-responsive">
                       <table class="main-table table table-bordered table-hover">
                           <tr>
@@ -456,7 +458,7 @@
                           ?>
                       </table>
                     </div>
-
+                    <?php } ?>    
                   </div>
 
             <?php } else {

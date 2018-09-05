@@ -60,7 +60,7 @@
                             <i class="fas fa-comments"></i>
                             <div class="info">
                                 Total Comments
-                                <span>0</span>
+                                <span><a href="comments.php"><?php echo countItems('C_ID','comments')?></span></a></span>
                             </div>
 
                         </div>
@@ -83,23 +83,27 @@
                             <div class="panel-body">
                                 <ul class="list-unstyled latest-users">
                                     <?php
-                                        foreach ($latestRegisterdUsers as $user) {
-                                            echo '<li>';
-                                                echo $user['Username'];
-                                                echo "<a href='members.php?do=Edit&userid=" . $user['UserID'] ."'>";
-                                                    echo "<span class='btn btn-success pull-right'>";
-                                                        echo "<i class='far fa-edit'></i> Edit";
-                                                        if($user['RegStatus'] == 0){
-                                                            echo "<a href='members.php?do=Activate&userid=" . $user['UserID'] . "
-                                                            'class='btn btn-info pull-right activate'> Activate</a>";
-                                                        }
-                                                    echo "</span>";
-                                                echo "</a>";
-                                            echo "</li>";
+                                        if(!empty($latestRegisterdUsers)){
+                                            foreach ($latestRegisterdUsers as $user) {
+                                                echo '<li>';
+                                                    echo $user['Username'];
+                                                    echo "<a href='members.php?do=Edit&userid=" . $user['UserID'] ."'>";
+                                                        echo "<span class='btn btn-success pull-right'>";
+                                                            echo "<i class='far fa-edit'></i> Edit";
+                                                            if($user['RegStatus'] == 0){
+                                                                echo "<a href='members.php?do=Activate&userid=" . $user['UserID'] . "
+                                                                'class='btn btn-info pull-right activate'> Activate</a>";
+                                                            }
+                                                        echo "</span>";
+                                                    echo "</a>";
+                                                echo "</li>";
+                                            }
+                                        } else {
+                                            echo "There is no users to show";
                                         }
+
                                     ?>
                                 </ul>
-
                             </div>
                         </div>
                     </div>
@@ -114,27 +118,74 @@
                             <div class="panel-body">
                                 <ul class="list-unstyled latest-users">
                                     <?php
-                                        foreach ($currentItems as $item) {
-                                            echo '<li>';
-                                                echo $item['Name'];
-                                                echo "<a href='items.php?do=Edit&itemid=" . $item['Item_ID'] ."'>";
-                                                    echo "<span class='btn btn-success pull-right'>";
-                                                        echo "<i class='far fa-edit'></i> Edit";
-                                                        if($item['Approve'] == 0){
-                                                            echo "<a href='items.php?do=Approve&itemid=" . $item['Item_ID'] . "
-                                                            'class='btn btn-info pull-right activate'>
-                                                            <i class='far fa-check-square'></i> Approve</a>";
-                                                        }
-                                                    echo "</span>";
-                                                echo "</a>";
-                                            echo "</li>";
+                                        if (!empty($currentItems)) {
+                                            foreach ($currentItems as $item) {
+                                                echo '<li>';
+                                                    echo $item['Name'];
+                                                    echo "<a href='items.php?do=Edit&itemid=" . $item['Item_ID'] ."'>";
+                                                        echo "<span class='btn btn-success pull-right'>";
+                                                            echo "<i class='far fa-edit'></i> Edit";
+                                                            if($item['Approve'] == 0){
+                                                                echo "<a href='items.php?do=Approve&itemid=" . $item['Item_ID'] . "
+                                                                'class='btn btn-info pull-right activate'>
+                                                                <i class='far fa-check-square'></i> Approve</a>";
+                                                            }
+                                                        echo "</span>";
+                                                    echo "</a>";
+                                                echo "</li>";
+                                            }
+                                        } else {
+                                            echo "There is no items to show";
                                         }
+
                                     ?>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> <!-- End row -->
+
+                <!-- Start Comments -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <i class="fas fa-comments"></i>Latest Comments
+                                <span class="toggle-info pull-right">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </div>
+                            <div class="panel-body">
+                                <?php
+                                $stmt = $con->prepare("SELECT
+                                                          comments.*,users.Username AS Member
+                                                      FROM
+                                                          comments
+                                                      INNER JOIN
+                                                          users
+                                                      ON users.UserID = comments.user_id
+                                                      ");
+                                $stmt->execute();
+                                $comments = $stmt->fetchAll();
+
+                                if (!empty($comments)) {
+                                    foreach ($comments as $comment) {
+                                            echo "<div class='comment-box'>";
+                                                echo "<span class='member-name pull-left'>" . $comment['Member']  . "</span>";
+                                                echo "<p class='member-comment pull-right'>" . $comment['Comment'] . "</p>";
+                                            echo "</div>";
+                                    }
+                                } else {
+                                    echo "There is no comments to show";
+                                }
+
+
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End row -->
+                <!-- Start Comments -->
             </div>
         </div>
 

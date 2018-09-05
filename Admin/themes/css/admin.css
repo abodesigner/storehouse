@@ -188,6 +188,37 @@ i.fas{
 .latest-users .btn-info{
     margin-right: 5px
 }
+
+.latest .comment-box{
+    margin: 10px 0;
+    position: relative;
+}
+
+.latest .comment-box .member-name{
+    padding: 5px;
+    margin-right: 25px;
+
+}
+.latest .comment-box .member-comment{
+    padding: 5px;
+    background-color: #333;
+    color: #fff;
+    display: inline-block;
+    
+}
+
+.latest .comment-box .member-comment::before{
+  /* content: " ";
+  height: 0;
+  position: absolute;
+  top: 22px;
+  width: 0;
+  z-index: 1;
+  left: 30px;
+  border: medium solid #333;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent red transparent transparent; */
+}
 /* End Dashboard */
 
 /* Start Member Page */

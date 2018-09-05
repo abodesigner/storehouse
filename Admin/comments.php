@@ -27,7 +27,11 @@ if(isset($_SESSION['Username'])){
                               ON users.UserID = comments.user_id");
         $stmt->execute();
         $rows = $stmt->fetchAll();
+
+        if (!empty($rows)) {
+
         ?>
+
         <h1 class="text-center">Manage Comments</h1>
         <div class="container">
             <div class="table-responsive">
@@ -65,6 +69,11 @@ if(isset($_SESSION['Username'])){
                 </table>
             </div>
         </div>
+    <?php } else {
+        echo "<div class='container'>";
+            echo "<div class='alert alert-danger'>There is no Comments to show</div>";
+        echo "<div>";
+    }?>
 
     <?php
 
@@ -126,7 +135,7 @@ if(isset($_SESSION['Username'])){
                     $stmt->execute(array($comment, $cid));
 
                     $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " comment updated successfully</div>";
-                    redirectHome($theMsg,'back');
+                    redirectHome($theMsg);
 
                 } else{
 

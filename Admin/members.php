@@ -20,6 +20,10 @@
             $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query");
             $stmt->execute();
             $rows = $stmt->fetchAll();
+
+            if(!empty($rows)){
+
+
             ?>
             <h1 class="text-center">Manage Members</h1>
             <div class="container">
@@ -59,6 +63,12 @@
                 </div>
                 <a href='members.php?do=Add' class="btn btn-primary"><i class="fas fa-plus-circle"></i>New Member<a>
             </div>
+        <?php } else {
+            echo "<div class='container'>";
+                echo "<div class='alert alert-danger'>There is no members to show</div>";
+                echo "<a href='members.php?do=Add' class='btn btn-primary btn-sm'><i class='fas fa-plus-circle'></i>New Member<a>";
+            echo "<div>";
+        }?>
 
         <?php } elseif ($do == 'Add') { // Add Page     ?>
             <h1 class="text-center">Add New User</h1>
@@ -331,7 +341,7 @@
 
                         // Success Msg
                         $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " member deleted successfully</div>";
-                        redirectHome($theMsg);
+                        redirectHome($theMsg, 'back');
                         } else {
 
                         echo "<div class='container'>";

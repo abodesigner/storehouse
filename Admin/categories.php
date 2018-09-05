@@ -376,7 +376,7 @@
 
                     // Success Msg
                     $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " category deleted successfully</div>";
-                    redirectHome($theMsg);
+                    redirectHome($theMsg, 'back');
                     } else {
 
                     echo "<div class='container'>";
