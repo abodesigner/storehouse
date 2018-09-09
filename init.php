@@ -1,5 +1,6 @@
 <?php
-	include 'dbcon.php';
+	// Connect to database from admin
+	include 'admin/dbcon.php';
 	// Routes
 	$tpl  = 'includes/templates/';
 	$lang = 'includes/languages/';
@@ -13,5 +14,3 @@
 	include $func . 'functions.php';
 	include $lang . 'en.php';
 	include $tpl  . 'header.inc.php';
-
-	if (!isset($noNavbar)){ include $tpl . 'navbar.inc.php'; }

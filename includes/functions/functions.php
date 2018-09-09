@@ -1,6 +1,58 @@
 <?php
 
     /*
+    ============================================================
+     Function related to Front-End
+    ============================================================
+    */
+
+    /*
+    ** Function Name : getCats().
+    ** Version       : 1.0.
+    ** Usage         : get categories.
+    */
+
+    function getCats(){
+        global $con;
+        $getCats = $con->prepare("SELECT * FROM categories ORDER BY ID ASC");
+        $getCats->execute();
+        $rows = $getCats->fetchAll();
+        return $rows;
+    }
+
+
+    /*
+    ** Function Name : getItems().
+    ** Version       : 1.0.
+    ** Usage         : get items.
+    */
+
+    function getItems($CatID){
+        global $con;
+        $items = $con->prepare("SELECT * FROM items WHERE Cat_ID = ? ORDER BY Item_ID DESC");
+        $items->execute(array($CatID));
+        $rows = $items->fetchAll();
+        return $rows;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /*
     ** Function Name : getTitle().
     ** Version       : 1.0.
     ** Usage         : echo the apge title in case

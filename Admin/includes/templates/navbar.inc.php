@@ -28,6 +28,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">aboanas
               <i class="fas fa-user-circle"></i></a>
           <ul class="dropdown-menu">
+            <li><a href="../index.php">Visit Shop</a></li> 
             <li><a href="members.php?do=Edit&userid=<?php echo $_SESSION['ID']; ?>"><i class="fas fa-user-edit"></i>Edit Profile</a></li>
             <li role="separator" class="divider"></li>
             <li><a href="#"><i class="fas fa-cog"></i>Settings</a></li>
