@@ -24,7 +24,8 @@ if(isset($_SESSION['Username'])){
                               ON items.Item_ID = comments.item_id
                               INNER JOIN
                                   users
-                              ON users.UserID = comments.user_id");
+                              ON users.UserID = comments.user_id
+                              ORDER BY C_ID DESC");
         $stmt->execute();
         $rows = $stmt->fetchAll();
 

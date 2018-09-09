@@ -16,6 +16,9 @@
         $numItems = 5;
         $currentItems = getLatest("*","items", "Name", $numItems); //Latest Items Array
 
+        $numComments = 5;
+        $currentComments = getLatest("*","comments", "Comment", $numComments); //Latest Comments Array
+
         ?>
 
         <div class="wrapper">
@@ -101,7 +104,6 @@
                                         } else {
                                             echo "There is no users to show";
                                         }
-
                                     ?>
                                 </ul>
                             </div>
@@ -150,7 +152,7 @@
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <i class="fas fa-comments"></i>Latest Comments
+                                <i class="fas fa-comments"></i>Latest <strong><?php echo $numComments?></strong> Comments
                                 <span class="toggle-info pull-right">
                                     <i class="fas fa-plus"></i>
                                 </span>
@@ -163,16 +165,19 @@
                                                           comments
                                                       INNER JOIN
                                                           users
-                                                      ON users.UserID = comments.user_id
-                                                      ");
+                                                      ON
+                                                          users.UserID = comments.user_id
+                                                      ORDER BY
+                                                          C_ID DESC
+                                                      LIMIT $numComments");
                                 $stmt->execute();
                                 $comments = $stmt->fetchAll();
 
                                 if (!empty($comments)) {
                                     foreach ($comments as $comment) {
                                             echo "<div class='comment-box'>";
-                                                echo "<span class='member-name pull-left'>" . $comment['Member']  . "</span>";
-                                                echo "<p class='member-comment pull-right'>" . $comment['Comment'] . "</p>";
+                                                echo "<span class='member-name'>" . $comment['Member']  . "</span>";
+                                                echo "<p class='member-comment'>" . $comment['Comment'] . "</p>";
                                             echo "</div>";
                                     }
                                 } else {

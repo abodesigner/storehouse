@@ -28,7 +28,8 @@
                                     INNER JOIN
                                         users
                                     ON
-                                        users.UserID = items.Member_ID");
+                                        users.UserID = items.Member_ID
+                                    ORDER BY Item_ID DESC");
             $stmt->execute();
             $items = $stmt->fetchAll();
             ?>
@@ -458,7 +459,7 @@
                           ?>
                       </table>
                     </div>
-                    <?php } ?>    
+                    <?php } ?>
                   </div>
 
             <?php } else {

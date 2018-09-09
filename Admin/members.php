@@ -17,7 +17,7 @@
                 $query = 'AND RegStatus = 0';
             }
             // Fetch all s from database.
-            $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query");
+            $stmt = $con->prepare("SELECT * FROM users WHERE GroupID != 1 $query ORDER BY UserID DESC");
             $stmt->execute();
             $rows = $stmt->fetchAll();
 
@@ -308,12 +308,24 @@
                         // Check if there are no errors Proceed to Update operation
                         if(empty($FormErrors)){
 
-                            // Update the database with these information
-                            $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ? WHERE UserID = ? ");
-                            $stmt->execute(array($user, $email, $name, $pass, $id));
+                            $st2 = $con->prepare("SELECT * FROM users WHERE Username=? AND UserID!=?");
+                            $st2->execute(array($user,$id));
+                            $count = $st2->rowCount();
+                            if ($count == 1) {
+                                echo "<div class='container'>";
+                                    $theMsg = "<div class='alert alert-danger'>Sorry, This Username is exist</div>";
+                                    redirectHome($theMsg,'back');
+                            } else {
+                                // Update the database with these information
+                                $stmt = $con->prepare("UPDATE users SET Username = ?, Email = ?, FullName = ?, Password = ? WHERE UserID = ? ");
+                                $stmt->execute(array($user, $email, $name, $pass, $id));
 
-                            $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . "member updated successfully</div>";
-                            redirectHome($theMsg,'back');
+                                $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . "member updated successfully</div>";
+                                redirectHome($theMsg,'back');
+                            }
+
+
+
                         }
                     } else{
 

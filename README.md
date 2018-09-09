@@ -1,2 +1,0 @@
-# storehouse
-Ecommerce web application
