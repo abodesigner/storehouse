@@ -1,0 +1,154 @@
+
+body{
+    background-color: #f8f8f8;
+    font-size: 16px;
+    min-height: 2000px
+}
+
+h1{
+  font-size: 55px;
+  margin: 40px 0;
+  font-weight: bold;
+  color: #666
+}
+
+.asterix{
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #d20707
+}
+
+.input-container{position: relative;}
+
+/* ===================== Start Customize Bootstrap ================================= */
+
+/* Start Navbar */
+.navbar-inverse{
+    background-color: #fa4659;
+    border-color: #fa4659;
+}
+.navbar{
+    border-radius: 0;
+    margin-bottom: 0
+}
+
+.navbar-brand{
+    font-size: 1em;
+}
+
+.nav>li>a,
+.navbar-brand{
+    padding:15px 12px;
+
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a
+{
+    color: #f0fff3
+}
+
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.open>a:focus,
+.navbar-inverse .navbar-nav>.open>a:hover,
+.dropdown-menu{
+    background-color: #11cbd7
+}
+
+.dropdown-menu{
+    min-width: 180px;
+    padding: 0;
+    font-size: 1em;
+    border:none;
+    border-radius: 0;
+}
+
+.dropdown-menu > li > a{
+    color: #fff;
+    padding: 10px 30px;
+
+    -webkit-transition:all 0.2s ease-in-out;
+    -moz-transition:all 0.2s ease-in-out;
+    -o-transition:all 0.2s ease-in-out;
+    transition:all 0.2s ease-in-out;
+}
+.dropdown-menu > li > a:focus,
+.dropdown-menu > li > a:hover{
+    background-color: #f0fff3;
+    padding-left:10px;
+    font-weight: 600
+}
+
+.dropdown-menu .divider{
+    margin: 0
+}
+
+i.fas{
+    margin-right: 5px
+}
+/* End Navbar */
+
+/* Start Upper Bar */
+.upper-bar{
+  background-color: #f8f8f8;
+  padding: 10px
+
+}
+/* End Upper Bar */
+
+/* Start Login Form */
+.login-page form{
+  max-width: 380px;
+  margin: auto;
+}
+
+.login-page form input{
+  margin-bottom: 5px;
+}
+
+.login-page h1{
+  color: #d8d8d8
+}
+
+.login-page h1 span{
+  cursor: pointer;
+}
+
+.login-page .signup{
+  display: none;
+}
+
+.login-page [data-class='login'].active{
+  color: #337ab7
+}
+
+
+.login-page [data-class='signup'].active{
+  color: #5db85c
+}
+/* End Login Form */
+
+
+/* Start Categories Page */
+.item-box{
+  position: relative;
+}
+
+.item-box .price-tag{
+  background-color: #fa4659;
+  padding: 2px 5px;
+  color: #fff;
+  position: absolute;
+  left: 0px;
+  top: 10px;
+  font-weight: bold;
+}
+/* End Categories Page */
+
+/* Start Profile Page */
+.information{
+  margin-top:20px; 
+}
+/* End Profile Page */

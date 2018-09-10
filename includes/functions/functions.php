@@ -21,12 +21,12 @@
     }
 
 
+
     /*
     ** Function Name : getItems().
     ** Version       : 1.0.
     ** Usage         : get items.
     */
-
     function getItems($CatID){
         global $con;
         $items = $con->prepare("SELECT * FROM items WHERE Cat_ID = ? ORDER BY Item_ID DESC");
@@ -34,6 +34,30 @@
         $rows = $items->fetchAll();
         return $rows;
     }
+
+    /*
+    ** Function Name : checkUserStatus().
+    ** Version       : 1.0.
+    ** Usage         : check if regStatus == 0 or 1.
+    */
+
+    function checkUserStatus($user){
+      global $con;
+      $stmtx = $con->prepare("SELECT
+                                 Username, RegStatus
+                             FROM
+                                 users
+                             WHERE
+                                  Username=?
+                             AND
+                                  RegStatus = 0");
+      $stmtx->execute(array($user));
+      $status = $stmtx->rowCount();
+
+      return $status;
+    }
+
+
 
 
 

@@ -6,9 +6,14 @@
           $catid = str_replace('-',' ',$_GET['pageid']);
           $listItems = getItems($catid);
               foreach ($listItems as $item) {
-              echo "<div class='col-md-4 col-sm-6'>";
-                  echo "<div class='thumbnail'>";
-                      echo "<img src='https://via.placeholder.com/350x150' alt='testImg' />";
+              echo "<div class='col-md-3 col-sm-6'>";
+                  echo "<div class='thumbnail item-box'>";
+                      echo "<span class='price-tag'>" . $item['Price'] . "</span>";
+                      echo "<img class='img-responsive' src='https://via.placeholder.com/350x150' alt='testImg' />";
+                      echo "<div class='caption'>";
+                        echo "<h3>" . $item['Name'] . "</h3>";
+                        echo "<p>" . $item['Description'] . "</p>";
+                      echo "</div>";
                   echo "</div>";
               echo "</div>";
             }

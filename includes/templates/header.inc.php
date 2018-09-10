@@ -6,12 +6,37 @@
 		<link rel="stylesheet" type="text/css" href="<?php echo $css ?>all.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $css ?>jquery-ui.css">
 		<link rel="stylesheet" type="text/css" href="<?php echo $css ?>jquery.selectBoxIt.css">
-		<link rel="stylesheet" type="text/css" href="<?php echo $css ?>admin.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo $css ?>front.css">
 
 	</head>
 	<body>
 		<div class="upper-bar">
-			Upper Bar
+			<div class="container">
+				<?php
+
+					if(isset($_SESSION['user'])){
+
+						echo "Welcome " . $_SESSION['user'] . ' ';
+
+						echo "<a href='profile.php'>My Profile</a>";
+
+						echo " - <a href='logout.php'> Logout</a>";
+
+						$userStatus = checkUserStatus($_SESSION['user']);
+
+							if($userStatus == 1){
+
+								// User not activated yet
+
+							}
+				} else { ?>
+					<a href="login.php">
+						<span class="pull-right">login/signup</span>
+					</a>
+				<?php } ?>
+
+
+			</div>
 		</div>
 		<nav class="navbar navbar-inverse">
 		  <div class="container">
