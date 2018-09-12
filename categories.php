@@ -4,7 +4,7 @@
       <div class="row">
         <?php
           $catid = str_replace('-',' ',$_GET['pageid']);
-          $listItems = getItems($catid);
+          $listItems = getItems('Cat_ID',$catid);
               foreach ($listItems as $item) {
               echo "<div class='col-md-3 col-sm-6'>";
                   echo "<div class='thumbnail item-box'>";

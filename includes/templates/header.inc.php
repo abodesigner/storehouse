@@ -16,13 +16,13 @@
 
 					if(isset($_SESSION['user'])){
 
-						echo "Welcome " . $_SESSION['user'] . ' ';
+						echo "Welcome " . $sessionUser . ' ';
 
 						echo "<a href='profile.php'>My Profile</a>";
 
 						echo " - <a href='logout.php'> Logout</a>";
 
-						$userStatus = checkUserStatus($_SESSION['user']);
+						$userStatus = checkUserStatus($sessionUser);
 
 							if($userStatus == 1){
 

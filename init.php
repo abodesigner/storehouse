@@ -1,4 +1,15 @@
 <?php
+
+	// error_reporting
+	ini_set('display_errors','on');
+	error_reporting(E_ALL);
+
+	$sessionUser = '';
+	if(isset($_SESSION['user'])){
+			$sessionUser = $_SESSION['user'];
+	}
+
+
 	// Connect to database from admin
 	include 'admin/dbcon.php';
 	// Routes

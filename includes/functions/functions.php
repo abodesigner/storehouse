@@ -1,5 +1,4 @@
 <?php
-
     /*
     ============================================================
      Function related to Front-End
@@ -20,17 +19,15 @@
         return $rows;
     }
 
-
-
     /*
     ** Function Name : getItems().
     ** Version       : 1.0.
     ** Usage         : get items.
     */
-    function getItems($CatID){
+    function getItems($where, $value){
         global $con;
-        $items = $con->prepare("SELECT * FROM items WHERE Cat_ID = ? ORDER BY Item_ID DESC");
-        $items->execute(array($CatID));
+        $items = $con->prepare("SELECT * FROM items WHERE $where = ? ORDER BY Item_ID DESC");
+        $items->execute(array($value));
         $rows = $items->fetchAll();
         return $rows;
     }
@@ -57,6 +54,18 @@
       return $status;
     }
 
+    /*
+    ** Function Name : checkItem().
+    ** Version       : 1.0.
+    ** Usage         : check item if exist in database
+    */
+    function checkItem($Item,$Table,$value){
+        global $con;
+        $sttmt = $con->prepare("SELECT $Item FROM $Table WHERE $Item = ?");
+        $sttmt->execute(array($value));
+        $count = $sttmt->rowCount();
+        return $count;
+    }
 
 
 
@@ -112,20 +121,6 @@
         exit();
     }
 
-    /*
-    ** Function Name : getTitle().
-    ** Version       : 1.0.
-    ** Usage         : echo the apge title in case
-    **                 page has the '$pageTitle Variable',
-    **                 else echo 'default' for other pages.
-    */
-    function checkItem($Item,$Table,$value){
-        global $con;
-        $sttmt = $con->prepare("SELECT $Item FROM $Table WHERE $Item = ?");
-        $sttmt->execute(array($value));
-        $count = $sttmt->rowCount();
-        return $count;
-    }
 
     /*
     ** Function Name : countItems().
