@@ -20,6 +20,14 @@ h1{
   color: #d20707
 }
 
+.main-form .asterix{
+  font-size: 30px;
+  position: absolute;
+  right: 30px;
+  top: 3px;
+  color: #d20707
+}
+
 .input-container{position: relative;}
 
 /* ===================== Start Customize Bootstrap ================================= */

@@ -20,6 +20,8 @@
 
 						echo "<a href='profile.php'>My Profile</a>";
 
+						echo " - <a href='newItem.php'>New Item</a>";
+
 						echo " - <a href='logout.php'> Logout</a>";
 
 						$userStatus = checkUserStatus($sessionUser);
