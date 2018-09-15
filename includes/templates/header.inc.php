@@ -20,9 +20,9 @@
 
 						echo "<a href='profile.php'>My Profile</a>" . " - ";
 
-						echo "<a href='newad.php'>New Ad</a>";
+						echo " - <a href='newItem.php'>New Item</a>";
 
-						echo "<a href='logout.php'> Logout</a>";
+						echo " - <a href='logout.php'> Logout</a>";
 
 						$userStatus = checkUserStatus($sessionUser);
 
@@ -60,7 +60,7 @@
 					$categories = getCats();
 					foreach ($categories as $cat) {
 						echo "<li>
-								<a href='categories.php?pageid=" . $cat['ID'] . "&pagename=" . str_replace(' ','-',$cat['Name']) . "'>"
+								<a href='categories.php?pageid=" . $cat['ID'] . "'>"
 								. $cat['Name'] .
 								"</a>
 							  </li>";

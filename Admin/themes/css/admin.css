@@ -267,6 +267,8 @@ label{
     -moz-box-shadow: 0 3px 20px #ccc;
     -o-box-shadow: 0 3px 20px #ccc;
     box-shadow: 0 3px 20px #ccc;
+
+    table-layout: auto;
 }
 
 
@@ -274,15 +276,22 @@ label{
     vertical-align: middle !important;
 }
 
-.main-table th{
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-}
 
 .main-table tr{
     text-align: center;
 }
+
+.main-table tr th:nth-last-child(){
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+
+}
+
+/* .main-table tr th:nth-child(6){
+  width: 300px
+} */
+
 
 .main-table .btn{
     padding: 3px 10px

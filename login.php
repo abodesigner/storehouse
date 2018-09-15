@@ -21,19 +21,22 @@
 
             // Check if the User exist in database
             $stmt = $con->prepare("SELECT
-                                       Username, Password
+                                       UserID, Username, Password
                                    FROM
                                        users
                                    WHERE
                                         Username=?
                                    AND
                                         Password=?");
+
             $stmt->execute(array($username, $hashedPwd));
+            $getID = $stmt->fetch();
             $count = $stmt->rowCount();
 
             if($count > 0){
               //there are data in database
-              $_SESSION['user'] = $username;     //Register Session Name
+              $_SESSION['user']   = $username;        //Register Session Name
+              $_SESSION['uid'] = $getID['UserID'];    //Register Session ID
 
               //print_r($_SESSION);
               header("Location: index.php"); // Redirect to dashboard page.

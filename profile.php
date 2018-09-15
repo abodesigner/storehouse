@@ -5,6 +5,8 @@
 
     if(isset($_SESSION['user'])){
 
+      // print_r($_SESSION);
+
       $getUserStm = $con->prepare("SELECT * FROM users WHERE Username = ?");
       $getUserStm->execute(array($sessionUser));
       $info = $getUserStm->fetch();
@@ -52,18 +54,19 @@
                           foreach ($listItems as $item) {
                           echo "<div class='col-md-3 col-sm-6'>";
                               echo "<div class='thumbnail item-box'>";
-                                  echo "<span class='price-tag'>" . $item['Price'] . "</span>";
+                                  echo "<span class='price-tag'>$" . $item['Price'] . "</span>";
                                   echo "<img class='img-responsive' src='https://via.placeholder.com/350x150' alt='testImg' />";
                                   echo "<div class='caption'>";
-                                    echo "<h3>" . $item['Name'] . "</h3>";
+                                    echo "<h3><a href='item-details.php?itemid=". $item['Item_ID'] ."'>" . $item['Name'] . "</a></h3>";
                                     echo "<p>" . $item['Description'] . "</p>";
+                                    echo "<div class='date'>" .  $item['Add_Date'] . "</div>";
                                   echo "</div>";
                               echo "</div>";
                           echo "</div>";
                           }
                         echo "</div>";
                     } else {
-                      echo "There is no Ads to show, Create <a href='newad.php'>New Ad<a>";
+                      echo "There is no Ads to show, Create <a href='newItem.php'>New Item</a>";
                     }
                 ?>
             </div>

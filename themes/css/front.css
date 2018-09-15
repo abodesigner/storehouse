@@ -12,6 +12,10 @@ h1{
   color: #666
 }
 
+.custom-hr{
+  border-color: #dcdcdc
+}
+
 .asterix{
   font-size: 20px;
   position: absolute;
@@ -191,4 +195,73 @@ i.fas{
   display: inline-block;
   width: 160px
 }
+
+.thumbnail .date{
+  text-align: right;
+  font-size: 12px;
+  color: #aaa;
+  font-weight: bold
+}
 /* End Profile Page */
+
+/* Start Show Item */
+.item-info h2{
+  padding: 10px;
+  margin: 0
+}
+.item-info p{
+  padding: 10px
+}
+.item-info ul li{
+  padding: 10px 0;
+
+}
+
+.item-info li:nth-child(odd){
+  background-color: #eee
+}
+
+.item-info li span{
+  display: inline-block;
+  width: 100px
+}
+
+.user-comment h3{
+  margin: 0
+}
+
+.user-comment textarea{
+  margin: 10px 0
+}
+
+.custom-comment{
+  margin-top: 10px
+}
+
+.user-comments{
+  margin-bottom: 20px;
+}
+
+.user-comments img{
+  max-width: 100px;
+  margin-bottom: 10px
+}
+
+.user-comments .lead{
+  background-color: #dedede;
+  position: relative;
+  padding: 10px
+}
+
+.user-comments .lead:before{
+  content: "";
+  width: 0;
+  height: 0;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent #DEDEDE transparent transparent;
+  position: absolute;
+  top: 2px;
+  left: -20px
+}
+/* End Show Item */
