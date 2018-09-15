@@ -78,7 +78,6 @@
             <h1 class="text-center">Add New Item</h1>
             <div class="container">
                 <form class="form-horizontal" action="?do=Insert" method="POST">
-
                     <!-- Start Name field -->
                     <div class="form-group">
                         <label class="col-sm-2 control-label" for="">Name</label>
