@@ -21,7 +21,7 @@
                          ON
                                 users.UserID = items.Member_ID
                          WHERE
-                                Item_ID=?");
+                                Item_ID=? AND Approve = 1");
 
   $stmt->execute(array($itemid));
   $count = $stmt->rowCount();
@@ -69,7 +69,7 @@
               <div class="user-comment">
                 <h3>Add Your Comments</h3>
                 <form action="<?php echo $_SERVER['PHP_SELF'] . '?itemid=' . $item['Item_ID']  ?>" method="POST">
-                  <textarea name="comment" class="form-control" placeholder="write comment"></textarea>
+                  <textarea name="comment" class="form-control" placeholder="write comment" required></textarea>
                   <input type="submit" value="Add Comment" class="btn btn-info">
                 </form>
                 <?php
@@ -143,7 +143,7 @@
       </div>
 
   <?php  } else {
-    echo "Error ... This Item is not exist in our records";
+    echo "<div class='alert alert-danger'>This Item's ID is not exist Or waiting approval</div>";
   }
 
     include $tpl . 'footer.inc.php';

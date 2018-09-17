@@ -13,6 +13,7 @@
                       echo "<div class='caption'>";
                         echo "<h3><a href='item-details.php?itemid=". $item['Item_ID'] ."'>" . $item['Name'] . "</a></h3>";
                         echo "<p>" . $item['Description'] . "</p>";
+                        echo "<div class='date'>Date: " . $item['Add_Date'] . "</div>";
                       echo "</div>";
                   echo "</div>";
               echo "</div>";

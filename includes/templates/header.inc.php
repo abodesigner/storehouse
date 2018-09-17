@@ -13,21 +13,28 @@
 		<div class="upper-bar">
 			<div class="container">
 				<?php
+					if(isset($_SESSION['user'])){ ?>
+						<img src="themes/images/user.png" alt="User">
+						<div class="btn-group my-info">
+							<span class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+								<?php echo $sessionUser; ?>
+								<span class="caret"></span>
+							</span>
+							<ul class="dropdown-menu">
+								<li><a href="profile.php">My Profile</a></li>
+								<li><a href="newItem.php">New Item</a></li>
+								<li><a href="profile.php#my-items">My Items</a></li>
+								<li><a href="profile.php#my-comments">My Comments</a></li>
+								<li><a href="logout.php">Logout</a></li>
+							</ul>
+						</div>
 
-					if(isset($_SESSION['user'])){
 
-						echo "Welcome " . $sessionUser . ' ';
+						<?php
 
-						echo "<a href='profile.php'>My Profile</a>" . " - ";
+								$userStatus = checkUserStatus($sessionUser);
 
-						echo " - <a href='newItem.php'>New Item</a>";
-
-						echo " - <a href='logout.php'> Logout</a>";
-
-						$userStatus = checkUserStatus($sessionUser);
-
-							if($userStatus == 1){
-
+								if($userStatus == 1){
 								// User not activated yet
 
 							}

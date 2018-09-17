@@ -108,6 +108,9 @@ i.fas{
   padding: 10px
 
 }
+.upper-bar .my-info{
+
+}
 /* End Upper Bar */
 
 /* Start Login Form */
@@ -170,6 +173,17 @@ i.fas{
   top: 10px;
   font-weight: bold;
 }
+
+.item-box .approve-status{
+  position: absolute;
+  top: 40px;
+  left: 0;
+  background-color: #d09900;
+  color: #fff;
+  padding: 3px 5px
+}
+
+.item-box .caption p{height: 44px;max-height: 44px}
 /* End Categories Page */
 
 /* Start Profile Page */
@@ -201,6 +215,10 @@ i.fas{
   font-size: 12px;
   color: #aaa;
   font-weight: bold
+}
+
+.information .btn{
+  margin-top: 10px 
 }
 /* End Profile Page */
 

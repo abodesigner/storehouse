@@ -11,6 +11,23 @@
     ** Usage         : get categories.
     */
 
+    function getAllRecords($table, $where = NULL, $orderBy = NULL){
+        global $con;
+
+        $sql = $where == NULL ? "" : $where;
+
+        $getAll = $con->prepare("SELECT * FROM $table $sql ORDER BY $orderBy DESC");
+        $getAll->execute();
+        $allRows = $getAll->fetchAll();
+        return $allRows;
+    }
+
+    /*
+    ** Function Name : getCats().
+    ** Version       : 1.0.
+    ** Usage         : get categories.
+    */
+
     function getCats(){
         global $con;
         $getCats = $con->prepare("SELECT * FROM categories ORDER BY ID ASC");
@@ -21,14 +38,20 @@
 
     /*
     ** Function Name : getItems().
-    ** Version       : 1.0.
+    ** Version       : 2.0.
     ** Usage         : get items.
     */
-    function getItems($where, $value){
+    function getItems($where, $value, $approve = NULL){
         global $con;
-        $items = $con->prepare("SELECT * FROM items WHERE $where = ? ORDER BY Item_ID DESC");
+
+        $sql = $approve == NULL ? "AND Approve = 1" : " ";
+
+        $items = $con->prepare("SELECT * FROM items WHERE $where = ? $sql ORDER BY Item_ID DESC");
+
         $items->execute(array($value));
+
         $rows = $items->fetchAll();
+
         return $rows;
     }
 

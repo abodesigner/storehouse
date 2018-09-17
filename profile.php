@@ -37,23 +37,27 @@
                   <span>Favourite Categories</span>: <?php echo $info['UserID']; ?>
                 </li>
               </ul>
+              <a href="#" class="btn btn-danger">
+                Edit Profile
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="my-ads block">
+      <div id="my-items" class="my-ads block">
         <div class="container">
           <div class="panel panel-primary">
-            <div class="panel-heading">My Ads</div>
+            <div class="panel-heading">My Items</div>
             <div class="panel-body">
                 <?php
-                      $listItems = getItems('Member_ID', $info['UserID']);
+                      $listItems = getItems('Member_ID', $info['UserID'], 1);
                       if(!empty($listItems)){
                         echo "<div class='row'>";
                           foreach ($listItems as $item) {
                           echo "<div class='col-md-3 col-sm-6'>";
                               echo "<div class='thumbnail item-box'>";
+                                  if($item['Approve'] == 0){ echo "<span class='approve-status'>waiting approved</span>"; }
                                   echo "<span class='price-tag'>$" . $item['Price'] . "</span>";
                                   echo "<img class='img-responsive' src='https://via.placeholder.com/350x150' alt='testImg' />";
                                   echo "<div class='caption'>";
@@ -74,7 +78,7 @@
         </div>
       </div>
 
-      <div class="my-comments block">
+      <div id="my-comments" class="my-comments block">
         <div class="container">
           <div class="panel panel-primary">
             <div class="panel-heading">My Comments</div>

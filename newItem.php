@@ -55,15 +55,13 @@
                 ));
 
                 if($stmt){
-                  echo "Item Added";
+                  $successMsg = "Item Added Successfully";
                 }
-      }
+              }
+            }
+    ?>
 
-
-    }
-
-  ?>
-
+    <!-- Start Form of adding new item -->
     <h1 class="text-center"><?php echo $pageTitle; ?></h1>
     <div class="create-item block">
       <div class="container">
@@ -79,24 +77,22 @@
                         <label class="col-sm-3 control-label" for="">Name</label>
                         <div class="col-sm-10 col-md-9">
                             <input
+                                   pattern=".{4,}"
+                                   title="This Field Require at least 4 charaters"
                                    type="text"
                                    name="name"
                                    class="form-control live-name"
-                                   placeholder="Name">
+                                   placeholder="This Field Require at least 4 charaters" required>
                         </div>
                     </div>
                     <!-- End Name field -->
 
                     <!-- Start Description field -->
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="">Description</label>
-                        <div class="col-sm-10 col-md-9">
-                            <input
-                                type="text"
-                                name="description"
-                                class="form-control live-desc"
-                                placeholder="Description">
-                        </div>
+                      <label class="col-sm-3 control-label">Desc</label>
+                      <div class="col-sm-10 col-md-9">
+                        <textarea name="description" placeholder="You should write at leats 10 characters" class="form-control live-desc" pattern=".{10,}" title="You should write at leats 10 characters"></textarea>
+                      </div>
                     </div>
                     <!-- End Description field -->
 
@@ -108,7 +104,7 @@
                                 type="text"
                                 name="price"
                                 class="form-control live-price"
-                                placeholder="Price">
+                                placeholder="Price" required>
                         </div>
                     </div>
                     <!-- End Price field -->
@@ -121,7 +117,7 @@
                                 type="text"
                                 name="country"
                                 class="form-control"
-                                placeholder="Country of Origin">
+                                placeholder="Country of Origin" required>
                         </div>
                     </div>
                     <!-- End Country_Made field -->
@@ -130,7 +126,7 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="">Status</label>
                         <div class="col-sm-10 col-md-9">
-                            <select name="status">
+                            <select name="status" required>
                                 <option value="">..</option>
                                 <option value="1">New</option>
                                 <option value="2">Like New</option>
@@ -145,12 +141,10 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="">Category</label>
                         <div class="col-sm-10 col-md-9">
-                            <select name="category">
+                            <select name="category" required>
                                 <option value="">..</option>
                                 <?php
-                                    $stm = $con->prepare("SELECT * FROM categories");
-                                    $stm->execute();
-                                    $categories = $stm->fetchAll();
+                                    $categories = getAllRecords('categories','ID');
                                     foreach ($categories as $cat) {
                                         echo "<option value='". $cat['ID'] ."'>" . $cat['Name'] . "</option>";
                                     }
@@ -189,13 +183,17 @@
               }
             }
 
+            if(isset($successMsg)){
+              echo "<div class='alert alert-success'>" . $successMsg . "</div>";
+            }
+
             ?>
             <!-- End Looping through errors -->
           </div>
         </div>
       </div>
     </div>
-
+    <!-- End Form of adding new item -->
 
     <?php
       } else {
