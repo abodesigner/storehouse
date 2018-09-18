@@ -1,0 +1,9 @@
+=============================================
+    Functions Document
+=============================================
+
+getAllRecords($field, $table, $where = NULL, $and = NULL, $orderfield, $ordering='DESC')
+
+
+$where can be empty.
+$and can be empty.

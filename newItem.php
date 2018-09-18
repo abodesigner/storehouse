@@ -144,7 +144,7 @@
                             <select name="category" required>
                                 <option value="">..</option>
                                 <?php
-                                    $categories = getAllRecords('categories','ID');
+                                    $categories = getAllRecords('*','categories','','','ID','ASC');
                                     foreach ($categories as $cat) {
                                         echo "<option value='". $cat['ID'] ."'>" . $cat['Name'] . "</option>";
                                     }

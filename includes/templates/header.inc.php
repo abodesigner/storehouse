@@ -28,15 +28,10 @@
 								<li><a href="logout.php">Logout</a></li>
 							</ul>
 						</div>
-
-
 						<?php
-
 								$userStatus = checkUserStatus($sessionUser);
-
 								if($userStatus == 1){
-								// User not activated yet
-
+									// User not activated yet
 							}
 				} else { ?>
 					<a href="login.php">
@@ -62,11 +57,10 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="app-nav">
 		      <ul class="nav navbar-nav navbar-right">
-		        <?php
-
-					$categories = getCats();
-					foreach ($categories as $cat) {
-						echo "<li>
+		      <?php
+						$categories = getAllRecords("*", "categories", "WHERE Parent = 0", "", "ID","ASC");
+						foreach ($categories as $cat) {
+							echo "<li>
 								<a href='categories.php?pageid=" . $cat['ID'] . "'>"
 								. $cat['Name'] .
 								"</a>

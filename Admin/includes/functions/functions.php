@@ -1,6 +1,25 @@
 <?php
 
     /*
+    ** Fun_Name : getAllReacords().
+    ** Version  : 2.0.
+    ** Usage    : get all records.
+    */
+
+    function getAllRecords($field, $table, $where = NULL, $and = NULL, $orderfield, $ordering = 'DESC'){
+        global $con;
+
+        $getAll = $con->prepare("SELECT * FROM $table $where $and ORDER BY $orderfield $ordering");
+
+        $getAll->execute();
+
+        $allRows = $getAll->fetchAll();
+
+        return $allRows;
+    }
+
+
+    /*
     ** Function Name : getTitle().
     ** Version       : 1.0.
     ** Usage         : echo the apge title in case

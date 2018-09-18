@@ -3,9 +3,11 @@
       <h1 class="text-center">Show Categories</h1>
       <div class="row">
         <?php
-          $catid = str_replace('-',' ',$_GET['pageid']);
-          $listItems = getItems('Cat_ID',$catid);
-              foreach ($listItems as $item) {
+
+          $listItems = getAllRecords('*', 'items', "where Cat_ID = {$_GET['pageid']}", "AND Approve = 1", "Item_ID");
+
+              foreach($listItems as $item) {
+
               echo "<div class='col-md-3 col-sm-6'>";
                   echo "<div class='thumbnail item-box'>";
                       echo "<span class='price-tag'>" . $item['Price'] . "</span>";

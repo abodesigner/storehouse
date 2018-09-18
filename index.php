@@ -8,9 +8,9 @@
 	<div class="container">
 			<div class="row">
 			<?php
-				$allItems = getAllRecords('items','WHERE Approve = 1','Item_ID');
+				$allItems = getAllRecords('*', 'items','','','Item_ID');
 
-				// $catid = str_replace('-',' ',$_GET['pageid']);
+				// $catid = str_replace('-',' ',$_GET['pageid']);WHERE Approve = 1
 				// $listItems = getItems('Cat_ID',$catid);
 
 				foreach ($allItems as $item) {

@@ -38,9 +38,7 @@ $(function () {
 
 
  $('.confirm').on('click', function(){
-
-     return confirm("Are you sure!");
-
+    return confirm("Are you sure!");
  });
 
  // Ctegory View Option
@@ -64,10 +62,9 @@ $('.option span').click(function(){
 });
 
     // Calls the selectBoxIt method on your HTML select box
-    $("select").selectBoxIt({
-    // Uses the Twitter Bootstrap theme for the drop down
-    // theme: "jqueryui"
-    });
+      $("select").selectBoxIt({
+        //theme: "jqueryui"
+        });
 
     //Start toggle-info part in dashoard
     $('.toggle-info').on('click', function(){
@@ -81,6 +78,14 @@ $('.option span').click(function(){
 
             $(this).html('<i class="fas fa-plus"></i>')
         }
+    });
+
+
+    //Show delete button in child Categories
+    $('.child-link').hover(function(){
+      $(this).find('.show-delete').fadeIn(100);
+    }, function(){
+      $(this).find('.show-delete').fadeOut(100);
     });
 
 });
