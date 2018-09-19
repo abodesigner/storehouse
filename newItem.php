@@ -15,6 +15,7 @@
       $country  = filter_var($_POST['country'], FILTER_SANITIZE_STRING);
       $status   = filter_var($_POST['status'], FILTER_SANITIZE_NUMBER_INT);
       $category = filter_var($_POST['category'], FILTER_SANITIZE_NUMBER_INT);
+      $tags     = filter_var($_POST['tags'], FILTER_SANITIZE_STRING);
 
       if(strlen($name) < 4){
         $formErrors[] = "Item name must be 4 chars at least";
@@ -42,8 +43,8 @@
 
       if(empty($FormErrors)){
         // Insert New Item data into the database
-        $stmt = $con->prepare("INSERT INTO items(Name, Description, Price, Country_Made, Status, Add_Date, Cat_ID, Member_ID)
-                               VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now(), :zcat, :zmember)");
+        $stmt = $con->prepare("INSERT INTO items(Name, Description, Price, Country_Made, Status, Add_Date, Cat_ID, Member_ID, Tags)
+                               VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now(), :zcat, :zmember, :ztags)");
                 $stmt->execute(array(
                     'zname'    => $name,
                     'zdesc'    => $desc,
@@ -51,7 +52,8 @@
                     'zcountry' => $country,
                     'zstatus'  => $status,
                     'zcat'     => $category,
-                    'zmember'  => $_SESSION['uid']
+                    'zmember'  => $_SESSION['uid'],
+                    'ztags'    => $tags
                 ));
 
                 if($stmt){
@@ -153,6 +155,20 @@
                         </div>
                     </div>
                     <!-- End Categories field -->
+
+                    <!-- Start Tags field -->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="">Tags</label>
+                        <div class="col-sm-10 col-md-9">
+                            <input
+                                type="text"
+                                name="tags"
+                                class="form-control"
+                                placeholder="Separate tags with comma (,)">
+                        </div>
+                    </div>
+                    <!-- End Tags field -->
+
 
                     <!-- Start Submit Button -->
                     <div class="form-group">

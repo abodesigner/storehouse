@@ -1,12 +1,14 @@
 <?php include 'init.php'; ?>
     <div class="container">
-      <h1 class="text-center">Show Categories</h1>
+
       <div class="row">
       <?php
-      if(isset($_GET['pageid']) && is_numeric($_GET['pageid'])){
-        $category = intval($_GET['pageid']);
-        $listItems = getAllRecords('*', 'items', "where Cat_ID = {$category}", "AND Approve = 1", "Item_ID");
-          foreach($listItems as $item) {
+      if(isset($_GET['tagtitle'])){
+        $tag = $_GET['tagtitle'];
+        echo "<h1 class='text-center'>" . $tag . "</h1>";
+
+        $TagItems = getAllRecords('*', 'items', "where Tags like '%$tag%'", "AND Approve = 1", "Item_ID");
+          foreach($TagItems as $item) {
             echo "<div class='col-md-3 col-sm-6'>";
               echo "<div class='thumbnail item-box'>";
                 echo "<span class='price-tag'>" . $item['Price'] . "</span>";

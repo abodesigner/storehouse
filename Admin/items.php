@@ -35,6 +35,7 @@
             ?>
             <h1 class="text-center">Manage Items</h1>
             <div class="container">
+                <a href='items.php?do=Add' class="btn btn-sm btn-danger"><i class="fas fa-plus-circle"></i>New Item<a>
                 <div class="table-responsive">
                     <table class="main-table table table-bordered table-hover">
                         <tr>
@@ -71,7 +72,7 @@
                         ?>
                     </table>
                 </div>
-                <a href='items.php?do=Add' class="btn btn-sm btn-primary"><i class="fas fa-plus-circle"></i>New Item<a>
+
             </div>
 
         <?php } elseif ($do == 'Add') { ?>
@@ -152,9 +153,7 @@
                             <select name="member">
                                 <option value="0">..</option>
                                 <?php
-                                    $st = $con->prepare("SELECT * FROM users");
-                                    $st->execute();
-                                    $users = $st->fetchAll();
+                                    $users = getAllRecords("*", "users", "", "", "Username", "ASC");
                                     foreach ($users as $user) {
                                         echo "<option value='". $user['UserID'] ."'>" . $user['Username'] . "</option>";
                                     }
@@ -171,17 +170,33 @@
                             <select name="category">
                                 <option value="0">..</option>
                                 <?php
-                                    $stm = $con->prepare("SELECT * FROM categories");
-                                    $stm->execute();
-                                    $categories = $stm->fetchAll();
+                                    $categories = getAllRecords("*", "categories", "where Parent = 0", "", "Name","ASC");
                                     foreach ($categories as $cat) {
                                         echo "<option value='". $cat['ID'] ."'>" . $cat['Name'] . "</option>";
+                                        $child_categories = getAllRecords("*", "categories", "where Parent = {$cat['ID']}", "", "Name","ASC");
+
+                                        foreach ($child_categories as $child) {
+                                          echo "<option value='". $child['ID'] ."'>--- " . $child['Name'] . "</option>";
+                                        }
                                     }
                                 ?>
                             </select>
                         </div>
                     </div>
                     <!-- End Categories field -->
+
+                    <!-- Start Tags field -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="">Tags</label>
+                        <div class="col-sm-10 col-md-3">
+                            <input
+                                type="text"
+                                name="tags"
+                                class="form-control"
+                                placeholder="Separate tags with comma (,)">
+                        </div>
+                    </div>
+                    <!-- End Tags field -->
 
                     <!-- Start Submit Button -->
                     <div class="form-group">
@@ -209,6 +224,7 @@
               $status   = $_POST['status'];
               $member   = $_POST['member'];
               $cat      = $_POST['category'];
+              $tags     = $_POST['tags'];
 
               // Validate the form
               $FormErrors = array();
@@ -216,9 +232,9 @@
                     $FormErrors[] = "Name can't be <strong>empty</strong>";
                 }
 
-              if(empty($desc)){
-                  $FormErrors[] = "Description can't be <strong>empty</strong>";
-              }
+              // if(empty($desc)){
+              //     $FormErrors[] = "Description can't be <strong>empty</strong>";
+              // }
 
               if(empty($price)){
                   $FormErrors[] = "Price can't be <strong>empty</strong>";
@@ -246,8 +262,8 @@
               // Check if there are no errors Proceed to Update operation
               if(empty($FormErrors)){
                 // Insert New Item data into the database
-                $stmt = $con->prepare("INSERT INTO items(Name, Description, Price, Country_Made, Status, Add_Date, Cat_ID, Member_ID)
-                                       VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now(), :zcat, :zmember)");
+                $stmt = $con->prepare("INSERT INTO items(Name, Description, Price, Country_Made, Status, Add_Date, Cat_ID, Member_ID, Tags)
+                                       VALUES(:zname, :zdesc, :zprice, :zcountry, :zstatus, now(), :zcat, :zmember, :ztags)");
                         $stmt->execute(array(
                             'zname'    => $name,
                             'zdesc'    => $desc,
@@ -255,7 +271,8 @@
                             'zcountry' => $country,
                             'zstatus'  => $status,
                             'zcat'     => $cat,
-                            'zmember'  => $member
+                            'zmember'  => $member,
+                            'ztags'    => $tags
                         ));
 
                 $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " item inserted successfully</div>";
@@ -367,9 +384,7 @@
                                 <select name="member">
                                     <option value="0">..</option>
                                     <?php
-                                        $st = $con->prepare("SELECT * FROM users");
-                                        $st->execute();
-                                        $users = $st->fetchAll();
+                                        $users = getAllRecords("*", "users", "", "", "Username");
                                         foreach ($users as $user) {
                                             echo "<option value='". $user['UserID'] ."'";
                                             if($item['Member_ID']== $user['UserID']){echo 'selected';}
@@ -388,9 +403,7 @@
                                 <select name="category">
                                     <option value="0">..</option>
                                     <?php
-                                        $stm = $con->prepare("SELECT * FROM categories");
-                                        $stm->execute();
-                                        $categories = $stm->fetchAll();
+                                        $categories = getAllRecords("*", "categories", "where Parent = 0", "", "Name");
                                         foreach ($categories as $cat) {
                                             echo "<option value='". $cat['ID'] ."'";
                                             if ($item['Cat_ID']==$cat['ID']){echo 'selected';}
@@ -401,6 +414,20 @@
                             </div>
                         </div>
                         <!-- End Categories field -->
+
+                        <!-- Start Tags field -->
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label" for="">Tags</label>
+                            <div class="col-sm-10 col-md-3">
+                                <input
+                                    type="text"
+                                    name="tags"
+                                    class="form-control"
+                                    placeholder="Separate tags with comma (,)"
+                                    value="<?php echo $item['Tags']?>">
+                            </div>
+                        </div>
+                        <!-- End Tags field -->
 
                         <!-- Start Submit Button -->
                         <div class="form-group">
@@ -485,6 +512,7 @@
                     $status  = $_POST['status'];
                     $cat     = $_POST['category'];
                     $member  = $_POST['member'];
+                    $tags    = $_POST['tags'];
 
 
                     // Validate the form
@@ -493,9 +521,9 @@
                           $FormErrors[] = "Name can't be <strong>empty</strong>";
                       }
 
-                    if(empty($desc)){
-                        $FormErrors[] = "Description can't be <strong>empty</strong>";
-                    }
+                    // if(empty($desc)){
+                    //     $FormErrors[] = "Description can't be <strong>empty</strong>";
+                    // }
 
                     if(empty($price)){
                         $FormErrors[] = "Price can't be <strong>empty</strong>";
@@ -533,12 +561,13 @@
                                                     Country_Made = ?,
                                                     Status = ?,
                                                     Cat_ID = ?,
-                                                    Member_ID = ?
+                                                    Member_ID = ?,
+                                                    Tags = ?
 
                                                WHERE
                                                     Item_ID = ? ");
 
-                        $stmt->execute(array($name, $desc, $price, $country, $status, $cat, $member, $id));
+                        $stmt->execute(array($name, $desc, $price, $country, $status, $cat, $member, $tags, $id));
 
                         $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " item updated successfully</div>";
                         redirectHome($theMsg,'back');

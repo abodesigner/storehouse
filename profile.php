@@ -49,7 +49,7 @@
             <div class="panel-heading">My Items</div>
             <div class="panel-body">
             <?php
-              $myItems = getAllRecords("*", "items", "WHERE Member_ID={$userid}", "AND Approve = 1", 'Item_ID','ASC');
+              $myItems = getAllRecords("*", "items", "WHERE Member_ID={$userid}", "", 'Item_ID','ASC');
 
               // $listItems = getItems('Member_ID', $userid, 1);
               if(!empty($myItems)){

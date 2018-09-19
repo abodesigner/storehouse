@@ -73,7 +73,7 @@
         <?php } elseif ($do == 'Add') { // Add Page     ?>
             <h1 class="text-center">Add New User</h1>
             <div class="container">
-                <form class="form-horizontal" action="?do=Insert" method="POST">
+                <form class="form-horizontal" action="?do=Insert" method="POST" enctype="multipart/form-data">
 
                     <!-- Start Username field -->
                     <div class="form-group">
@@ -108,6 +108,14 @@
                         </div>
                     </div>
                     <!-- End Fullname field -->
+                    <!-- Start Profile-Image field -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="">User Profile</label>
+                        <div class="col-sm-10 col-md-3">
+                            <input type="file" name="avatar" class="form-control">
+                        </div>
+                    </div>
+                    <!-- End Profile-Image field -->
                     <!-- Start Submit Button -->
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
@@ -126,6 +134,23 @@
 
                     echo "<h1 class='text-center'>Insert Page</h1>";
                     echo "<div class='container'>";
+
+
+                    // Upload Avatar
+                    $avatar = $_FILES['avatar'];
+
+                    // Get Variables from Image
+                    $avatarName = $_FILES['avatar']["name"];
+                    $avatarSize = $_FILES['avatar']["size"];
+                    $avatarTmp  = $_FILES['avatar']["tmp_name"];
+                    $avatarType = $_FILES['avatar']["type"];
+
+                    // List of allowed image extension
+                    $avatarAllowedExtension = array("jpeg","png","jpg","gif");
+
+                    // Get Avatar extension
+                    $tmp = explode(".", $avatarName);
+                    $avatarExtension = strtolower(end($tmp));
 
                     // Get Variables from form to insert them in database
                     $user  = $_POST['username'];
@@ -159,12 +184,17 @@
                     if(empty($name)){
                         $FormErrors[] = "Name can't be <strong>empty</strong>";
                     }
+
+                    if(!empty($avtarName) &&  !in_array($avatarExtension, $avatarAllowedExtension)){
+                      $FormErrors[] = "This type is not <strong>allowed</strong>";
+                    }
+
                     // Loop into Errors Array & echo it
                     foreach($FormErrors as $err) {
                         echo "<div class='alert alert-danger'>" . $err . '</div>';
                     }
                     // Check if there are no errors Proceed to Update operation
-                    if(empty($FormErrors)){
+                  /*  if(empty($FormErrors)){
 
                         //check if Username exist in database
                         $check = checkItem("Username", "users", $user);
@@ -186,7 +216,7 @@
                             redirectHome($theMsg,'back');
                         }
                     }
-
+                    */
                 } else{
 
                     echo "<div class='container'>";

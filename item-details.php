@@ -58,6 +58,28 @@
                   <i class="glyphicon glyphicon-user"></i>
                   <span>Added By</span>:<a href="#"><?php echo $item['Username']; ?></a>
                 </li>
+                <li class="tags-items">
+                  <i class="glyphicon glyphicon-tag"></i>
+                  <span>Tags</span>:
+                  <?php
+
+                    // Convert the string into array of string using explode function
+                    $allTags = explode("," , $item['Tags']);
+                      foreach ($allTags as $tag) {
+                          $trimmedtag = str_replace(" ", "", $tag);
+                          $lowertag = strtolower($trimmedtag);
+                          if(!empty($trimmedtag)){
+                              echo "<a href='tags.php?tagtitle={$lowertag}'>" . $tag . "</a>";
+                          } else {
+                            echo "No Tags";
+                          }
+
+                      }
+
+
+                  ?>
+
+                </li>
               </ul>
             </div>
         </div>
