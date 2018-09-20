@@ -28,9 +28,10 @@
             <h1 class="text-center">Manage Members</h1>
             <div class="container">
                 <div class="table-responsive">
-                    <table class="main-table table table-bordered table-hover">
+                    <table class="main-table manage-members table table-bordered table-hover">
                         <tr>
                             <th>#ID</th>
+                            <th>Avatar</th>
                             <th>Username</th>
                             <th>Email</th>
                             <th>Full Name</th>
@@ -41,6 +42,14 @@
                             foreach ($rows as $row) {
                                 echo "<tr>";
                                     echo "<td>" . $row['UserID'] . "</td>";
+                                    echo "<td>";
+                                      if(empty($row['avatar'])){
+                                          echo "<img src='uploads/avatars/default-avatar.png' alt='default-avatar' />";
+                                      } else {
+                                        echo "<img src='uploads/avatars/" . $row['avatar'] . "' alt='user-avatar' />";  
+                                      }
+
+                                    echo "</td>";
                                     echo "<td>" . $row['Username'] . "</td>";
                                     echo "<td>" . $row['Email'] . "</td>";
                                     echo "<td>" . $row['FullName'] . "</td>";
@@ -73,68 +82,65 @@
         <?php } elseif ($do == 'Add') { // Add Page     ?>
             <h1 class="text-center">Add New User</h1>
             <div class="container">
-                <form class="form-horizontal" action="?do=Insert" method="POST" enctype="multipart/form-data">
-
-                    <!-- Start Username field -->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="">Username</label>
-                        <div class="col-sm-10 col-md-3">
-                            <input type="text" name="username" class="form-control" autocomplete="off" required placeholder="Enter Username">
-                        </div>
+              <form class="form-horizontal" action="?do=Insert" method="POST" enctype="multipart/form-data">
+                <!-- Start Username field -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Username</label>
+                    <div class="col-sm-10 col-md-3">
+                        <input type="text" name="username" class="form-control" autocomplete="off" required placeholder="Enter Username">
                     </div>
-                    <!-- End Username field -->
-                    <!-- Start Password field -->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="">Password</label>
-                        <div class="col-sm-10 col-md-3 field">
-                            <input type="password" name="password" class="password form-control" autocomplete="new-password" required placeholder="Enter Password">
-                            <i class="show-pass far fa-eye"></i>
-                        </div>
+                </div>
+                <!-- End Username field -->
+                <!-- Start Password field -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Password</label>
+                    <div class="col-sm-10 col-md-3 field">
+                        <input type="password" name="password" class="password form-control" autocomplete="new-password" required placeholder="Enter Password">
+                        <i class="show-pass far fa-eye"></i>
                     </div>
-                    <!-- End Password field -->
-                    <!-- Start Email field -->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="">Email</label>
-                        <div class="col-sm-10 col-md-3">
-                            <input type="email" name="email" class="form-control"  autocomplete="off" required placeholder="Enter Email">
-                        </div>
+                </div>
+                <!-- End Password field -->
+                <!-- Start Email field -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Email</label>
+                    <div class="col-sm-10 col-md-3">
+                        <input type="email" name="email" class="form-control"  autocomplete="off" required placeholder="Enter Email">
                     </div>
-                    <!-- End Email field -->
-                    <!-- Start Fullname field -->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="">Fullname</label>
-                        <div class="col-sm-10 col-md-3">
-                            <input type="text" name="fullname" class="form-control" autocomplete="off" required placeholder="Enter Fullname">
-                        </div>
+                </div>
+                <!-- End Email field -->
+                <!-- Start Fullname field -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">Fullname</label>
+                    <div class="col-sm-10 col-md-3">
+                        <input type="text" name="fullname" class="form-control" autocomplete="off" required placeholder="Enter Fullname">
                     </div>
-                    <!-- End Fullname field -->
-                    <!-- Start Profile-Image field -->
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label" for="">User Profile</label>
-                        <div class="col-sm-10 col-md-3">
-                            <input type="file" name="avatar" class="form-control">
-                        </div>
+                </div>
+                <!-- End Fullname field -->
+                <!-- Start Profile-Image field -->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="">User Profile</label>
+                    <div class="col-sm-10 col-md-3">
+                        <input type="file" name="avatar" class="form-control" required  >
                     </div>
-                    <!-- End Profile-Image field -->
-                    <!-- Start Submit Button -->
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <input type="submit" name="submit" value="Add User" class="btn btn-primary">
-                        </div>
+                </div>
+                <!-- End Profile-Image field -->
+                <!-- Start Submit Button -->
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" name="submit" value="Add User" class="btn btn-primary">
                     </div>
-                    <!-- End Submit Button -->
-                </form>
+                </div>
+                <!-- End Submit Button -->
+              </form>
             </div>
-            <?php
 
-            } elseif ($do == 'Insert') {
+            <?php } elseif ($do == 'Insert') {
 
                 //Check if th user come from post request method
                 if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
                     echo "<h1 class='text-center'>Insert Page</h1>";
                     echo "<div class='container'>";
-
 
                     // Upload Avatar
                     $avatar = $_FILES['avatar'];
@@ -185,38 +191,49 @@
                         $FormErrors[] = "Name can't be <strong>empty</strong>";
                     }
 
-                    if(!empty($avtarName) &&  !in_array($avatarExtension, $avatarAllowedExtension)){
+                    if(!empty($avatarName) && !in_array($avatarExtension, $avatarAllowedExtension)){
                       $FormErrors[] = "This type is not <strong>allowed</strong>";
+                    }
+
+                    if(empty($avatarName)){
+                      $FormErrors[] = "Image is required";
+                    }
+
+                    if($avatarSize > 4194304){
+                      $FormErrors[] = "Image size is too big, can't big than 4MB";
                     }
 
                     // Loop into Errors Array & echo it
                     foreach($FormErrors as $err) {
-                        echo "<div class='alert alert-danger'>" . $err . '</div>';
+                      echo "<div class='alert alert-danger'>" . $err . '</div>';
                     }
                     // Check if there are no errors Proceed to Update operation
-                  /*  if(empty($FormErrors)){
+                    if(empty($FormErrors)){
+                      $avatar = rand(0, 1000000000) . "_" . $avatarName;
 
-                        //check if Username exist in database
-                        $check = checkItem("Username", "users", $user);
-                            if($check === 1 ){
-                            $theMsg = '<div class="alert alert-danger">Sorry, This Username already exists</div>';
-                            redirectHome($theMsg,'back');
+                      move_uploaded_file($avatarTmp,"uploads\avatars\\" . $avatar);
+                      //check if Username exist in database
+                      $check = checkItem("Username", "users", $user);
+                        if($check === 1 ){
+                          $theMsg = '<div class="alert alert-danger">Sorry, This Username already exists</div>';
+                          redirectHome($theMsg,'back');
                         } else {
-                            // Insert New User data into the database
-                            $stmt = $con->prepare("INSERT INTO users(Username, Password, Email, FullName, RegStatus, Date)
-                                                   VALUES(:zuser,:zpass,:zmail,:zname, 1, now())");
-                                    $stmt->execute(array(
-                                        'zuser' => $user,
-                                        'zpass' => $hashPass,
-                                        'zmail' => $email,
-                                        'zname' => $name,
-                                    ));
+                          // Insert New User data into the database
+                          $stmt = $con->prepare("INSERT INTO users(Username, Password, Email, FullName, RegStatus, Date, avatar)
+                                                 VALUES(:zuser,:zpass,:zmail,:zname, 1, now(), :zavatar)");
+                          $stmt->execute(array(
+                              'zuser'   => $user,
+                              'zpass'   => $hashPass,
+                              'zmail'   => $email,
+                              'zname'   => $name,
+                              'zavatar' => $avatar
+                          ));
 
-                            $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " member inserted successfully</div>";
-                            redirectHome($theMsg,'back');
+                          $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " member inserted successfully</div>";
+                          redirectHome($theMsg,'back');
                         }
                     }
-                    */
+
                 } else{
 
                     echo "<div class='container'>";
@@ -232,57 +249,58 @@
             $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) :  0;
 
             $stmt = $con->prepare("SELECT * FROM users WHERE UserID=? LIMIT 1");
-    		$stmt->execute(array($userid));
-    		$row = $stmt->fetch();
-    		$count = $stmt->rowCount();
+        		$stmt->execute(array($userid));
+        		$row = $stmt->fetch();
+        		$count = $stmt->rowCount();
 
             if ($count > 0) { ?>
-                <h1 class="text-center">Edit Page</h1>
-                <div class="container">
-                    <form class="form-horizontal" action="?do=Update" method="POST">
-                        <!-- Create input field hidden to save the userid -->
-                        <input type="hidden" name="userid" value="<?php echo $userid ?>">
-                        <!-- Start Username field -->
-                        <div class="form-group form-group-lg">
-                            <label class="col-sm-2 control-label" for="">Username</label>
-                            <div class="col-sm-10 col-md-6">
-                                <input type="text" name="username" class="form-control" value="<?php echo $row['Username'] ?>" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <!-- End Username field -->
-                        <!-- Start Password field -->
-                        <div class="form-group form-group-lg">
-                            <label class="col-sm-2 control-label" for="">Password</label>
-                            <div class="col-sm-10 col-md-6 field">
-                                <input type="hidden" name="oldpassword" value="<?php echo $row['Password'] ?>">
-                                <input type="password" name="newpassword" class="form-control" autocomplete="new-password" placeholder="Leave empty if you don not change it">
-                            </div>
-                        </div>
-                        <!-- End Password field -->
-                        <!-- Start Email field -->
-                        <div class="form-group form-group-lg">
-                            <label class="col-sm-2 control-label" for="">Email</label>
-                            <div class="col-sm-10 col-md-6">
-                                <input type="email" name="email" class="form-control" value="<?php echo $row['Email'] ?>" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <!-- End Email field -->
-                        <!-- Start Fullname field -->
-                        <div class="form-group form-group-lg">
-                            <label class="col-sm-2 control-label" for="">Fullname</label>
-                            <div class="col-sm-10 col-md-6">
-                                <input type="text" name="fullname" class="form-control" value="<?php echo $row['FullName'] ?>" autocomplete="off" required>
-                            </div>
-                        </div>
-                        <!-- End Fullname field -->
-                        <!-- Start Submit Button -->
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <input type="submit" name="submit" value="Save" class="btn btn-info btn-lg">
-                            </div>
-                        </div>
-                        <!-- End Submit Button -->
-                    </form>
+
+              <h1 class="text-center">Edit Page</h1>
+              <div class="container">
+                  <form class="form-horizontal" action="?do=Update" method="POST">
+                      <!-- Create input field hidden to save the userid -->
+                      <input type="hidden" name="userid" value="<?php echo $userid ?>">
+                      <!-- Start Username field -->
+                      <div class="form-group form-group-lg">
+                          <label class="col-sm-2 control-label" for="">Username</label>
+                          <div class="col-sm-10 col-md-6">
+                              <input type="text" name="username" class="form-control" value="<?php echo $row['Username'] ?>" autocomplete="off" required>
+                          </div>
+                      </div>
+                      <!-- End Username field -->
+                      <!-- Start Password field -->
+                      <div class="form-group form-group-lg">
+                          <label class="col-sm-2 control-label" for="">Password</label>
+                          <div class="col-sm-10 col-md-6 field">
+                              <input type="hidden" name="oldpassword" value="<?php echo $row['Password'] ?>">
+                              <input type="password" name="newpassword" class="form-control" autocomplete="new-password" placeholder="Leave empty if you don not change it">
+                          </div>
+                      </div>
+                      <!-- End Password field -->
+                      <!-- Start Email field -->
+                      <div class="form-group form-group-lg">
+                          <label class="col-sm-2 control-label" for="">Email</label>
+                          <div class="col-sm-10 col-md-6">
+                              <input type="email" name="email" class="form-control" value="<?php echo $row['Email'] ?>" autocomplete="off" required>
+                          </div>
+                      </div>
+                      <!-- End Email field -->
+                      <!-- Start Fullname field -->
+                      <div class="form-group form-group-lg">
+                          <label class="col-sm-2 control-label" for="">Fullname</label>
+                          <div class="col-sm-10 col-md-6">
+                              <input type="text" name="fullname" class="form-control" value="<?php echo $row['FullName'] ?>" autocomplete="off" required>
+                          </div>
+                      </div>
+                      <!-- End Fullname field -->
+                      <!-- Start Submit Button -->
+                      <div class="form-group">
+                          <div class="col-sm-offset-2 col-sm-10">
+                              <input type="submit" name="submit" value="Save" class="btn btn-info btn-lg">
+                          </div>
+                      </div>
+                      <!-- End Submit Button -->
+                  </form>
                 </div>
 
             <?php } else {
@@ -353,80 +371,67 @@
                                 $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . "member updated successfully</div>";
                                 redirectHome($theMsg,'back');
                             }
-
-
-
                         }
                     } else{
-
                         echo "<div class='container'>";
                             $theMsg = "<div class='alert alert-danger'>Sorry, you can not view this page directly</div>";
                             redirectHome($theMsg,'back');
                         echo "</div>";
-
                     }
                 echo "</div>";
 
             } elseif ($do == 'Delete') { //Delete Members
                 echo "<h1 class='text-center'>Delete Page</h1>";
                 echo "<div class='container'>";
-                    // Check if the userId From GET REGUEST is number
-                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) :  0;
+                  // Check if the userId From GET REGUEST is number
+                  $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) :  0;
+                  $check = checkItem("userid", "users", $userid);
 
-                    $check = checkItem("userid", "users", $userid);
+                  //If there is Id
+                  if ($check > 0) {
+                      $stmt = $con->prepare("DELETE FROM users WHERE userid = :zuser");
+                      $stmt->bindParam(":zuser", $userid);
+                      $stmt->execute();
 
-                    //If there is Id
-                    if ($check > 0) {
-                        $stmt = $con->prepare("DELETE FROM users WHERE userid = :zuser");
-                        $stmt->bindParam(":zuser", $userid);
-                        $stmt->execute();
+                      // Success Msg
+                      $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " member deleted successfully</div>";
+                      redirectHome($theMsg, 'back');
+                      } else {
 
-                        // Success Msg
-                        $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " member deleted successfully</div>";
-                        redirectHome($theMsg, 'back');
-                        } else {
-
-                        echo "<div class='container'>";
-                            $theMsg = "<div class='alert alert-danger'> This Id not exist </div>";
-                            redirectHome($theMsg);
-                        echo "</div>";
+                      echo "<div class='container'>";
+                          $theMsg = "<div class='alert alert-danger'> This Id not exist </div>";
+                          redirectHome($theMsg);
+                      echo "</div>";
                     }
                 echo "</div>";
 
             } elseif($do == 'Activate') { //Activate Members Page
                 echo "<h1 class='text-center'>Activate Page</h1>";
                 echo "<div class='container'>";
-                    // Check if the userId From GET REGUEST is number
-                    $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) :  0;
+                // Check if the userId From GET REGUEST is number
+                $userid = isset($_GET['userid']) && is_numeric($_GET['userid']) ? intval($_GET['userid']) :  0;
+                $check = checkItem("userid", "users", $userid);
 
-                    $check = checkItem("userid", "users", $userid);
+                //If there is Id
+                if ($check > 0) {
+                    $stmt = $con->prepare("UPDATE users SET RegStatus = 1 WHERE UserID = ?");
+                    $stmt->execute(array($userid));
 
-                    //If there is Id
-                    if ($check > 0) {
-                        $stmt = $con->prepare("UPDATE users SET RegStatus = 1 WHERE UserID = ?");
-                        $stmt->execute(array($userid));
+                    // Success Msg
+                    $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " member activated successfully</div>";
+                    redirectHome($theMsg);
+                    } else {
 
-                        // Success Msg
-                        $theMsg = "<div class='alert alert-success'>" . $stmt->rowCount() . " member activated successfully</div>";
+                    echo "<div class='container'>";
+                        $theMsg = "<div class='alert alert-danger'> This Id not exist </div>";
                         redirectHome($theMsg);
-                        } else {
-
-                        echo "<div class='container'>";
-                            $theMsg = "<div class='alert alert-danger'> This Id not exist </div>";
-                            redirectHome($theMsg);
-                        echo "</div>";
+                    echo "</div>";
                     }
                 echo "</div>";
-
             }
-
         include $tpl . 'footer.inc.php';
-
     } else{
-
     header('Location: index.php');
-
     exit();
-
     ob_end_flush();
 }

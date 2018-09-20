@@ -262,6 +262,11 @@ label{
 
 }
 
+.manage-members img{
+  width: 50px;
+  height: 50px
+}
+
 .main-table{
     -webkit-box-shadow: 0 3px 20px #ccc;
     -moz-box-shadow: 0 3px 20px #ccc;
